@@ -68,4 +68,23 @@ theorem Z2_quadratic : Z2 = -Complex.I • (g 2 * g 3) := by
   ext i j <;> fin_cases i <;> fin_cases j <;>
     simp [Z2, g, Complex.I_mul_I]
 
+/-- `Z` on the first qubit. -/
+def Z1 : Matrix (Fin 4) (Fin 4) ℂ :=
+  !![1, 0, 0, 0; 0, 1, 0, 0; 0, 0, -1, 0; 0, 0, 0, -1]
+
+/-- `Z_1 Z_2` is a **quartic** Majorana monomial — so `RZZ`, whose generator it
+is, is *not* a matchgate generator either.  The two-qubit matchgate generator is
+`X_l X_{l+1} = −i γ_{2l} γ_{2l+1}` (quadratic), not `Z_l Z_{l+1}`. -/
+theorem ZZ_quartic : Z1 * Z2 = -(g 0 * g 1 * g 2 * g 3) := by
+  ext i j <;> fin_cases i <;> fin_cases j <;>
+    simp [Z1, Z2, g, Complex.I_mul_I]
+
+/-- The RZZ generator moves a Majorana into a **cubic** monomial:
+`γ₁ · (Z₁Z₂) = −γ₂γ₃γ₄`.  Conjugating `γ₁` by `exp(−iθ Z₁Z₂/2)` therefore
+produces a cubic component, so the adjoint action is not linear and the
+covariance-matrix route does not apply. -/
+theorem ZZ_conj_cubic : g 0 * (Z1 * Z2) = -(g 1 * g 2 * g 3) := by
+  ext i j <;> fin_cases i <;> fin_cases j <;>
+    simp [Z1, Z2, g, Complex.I_mul_I]
+
 end FHB2Matchgate
