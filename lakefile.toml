@@ -1,0 +1,9 @@
+name = "fhb2_matchgate"
+defaultTargets = ["Fhb2Matchgate"]
+
+[[require]]
+name = "mathlib"
+path = "../mathlib4"
+
+[[lean_lib]]
+name = "Fhb2Matchgate"
